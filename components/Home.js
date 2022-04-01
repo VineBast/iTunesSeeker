@@ -1,7 +1,8 @@
-import { SearchBar, Tab, TabView, Card, Text, Rating } from 'react-native-elements';
+import { SearchBar, Tab, TabView, Card, Text } from 'react-native-elements';
 import { FlatList, StyleSheet, View, TouchableOpacity } from 'react-native';
 import { useEffect, useState } from 'react';
 import { useRoute } from '@react-navigation/native';
+import { Rating } from 'react-native-ratings';
 
 const createRequest = (search) => {
     return ('https://itunes.apple.com/search?term=' + search + '&attribute=mixTerm&country=fr&sort=popular&limit=20');
@@ -19,7 +20,6 @@ const Home = ({ navigation }) => {
         let songInfos = await req.json();
         setSongsList(songInfos);
         console.log(songsList);
-        console.log(Object.keys(songsList).length);
     }
 
     useEffect(() => {
@@ -33,6 +33,7 @@ const Home = ({ navigation }) => {
     useEffect(() => {
         if (route.params) {
             let song = route.params;
+            console.log(song);
             let id = songs.length;
             setSongs([...songs, {
                 id: id,
@@ -40,7 +41,8 @@ const Home = ({ navigation }) => {
                 image: song.artworkUrl100,
                 genre: song.primaryGenreName,
                 album: song.collectionName,
-                artistes: song.artistName
+                artistes: song.artistName,
+                rate: song.rate
             }])
         }
     }, [route])
@@ -98,9 +100,7 @@ const Home = ({ navigation }) => {
                                         <Text style={styles.titleArtist}>Artiste(s) • {item.artistName}</Text>
                                         <Text style={styles.titleAlbum}>Album • {item.collectionName}</Text>
                                     </Card>
-
                                 </TouchableOpacity>
-
                             )}
                         /> : <Text />}
                     </View>
@@ -116,6 +116,15 @@ const Home = ({ navigation }) => {
                                     <Text h4 style={styles.titleTitle}>{item.title}</Text>
                                     <Text style={styles.titleArtist}>Artiste(s) • {item.artistes}</Text>
                                     <Text style={styles.titleAlbum}>Album • {item.album}</Text>
+                                    <Rating
+                                        type='custom'
+                                        readonly
+                                        startingValue={item.rate}
+                                        imageSize={25}
+                                        ratingCount={10}
+                                        size={10}
+                                        ratingColor='#FFE656'
+                                    />
                                 </Card>
 
                             )}

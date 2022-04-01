@@ -3,7 +3,6 @@ import { useRoute } from '@react-navigation/native';
 import { Card, Text, Button } from 'react-native-elements';
 import { View, StyleSheet } from "react-native"
 import { Rating } from 'react-native-ratings';
-import { NativeScreenNavigationContainer } from "react-native-screens";
 
 const Song = ({ navigation }) => {
     const route = useRoute();
@@ -41,6 +40,7 @@ const Song = ({ navigation }) => {
                     imageSize={25}
                     ratingCount={10}
                     size={10}
+                    defaultRating={5}
                     onFinishRating={setRate}
                     ratingColor='#FFE656'
                 />                

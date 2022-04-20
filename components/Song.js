@@ -1,17 +1,21 @@
 import { useState } from "react";
 import { useRoute } from '@react-navigation/native';
 import { Card, Text, Button } from 'react-native-elements';
-import { View, StyleSheet } from "react-native"
+import { View, StyleSheet, StatusBar } from "react-native"
 import { Rating } from 'react-native-ratings';
+import { useDispatch } from "react-redux";
+import { add } from "./songsSlice";
 
 const Song = ({ navigation }) => {
+    const dispatch = useDispatch();
     const route = useRoute();
     const [song] = useState(route.params);
     const [rate, setRate] = useState('');
 
     const addSong = () => {
         song.rate = rate;
-        navigation.navigate("Accueil", song);
+        dispatch(add(song));        
+        navigation.navigate("HomeStack");
     }
 
     return (
@@ -45,6 +49,7 @@ const Song = ({ navigation }) => {
                     ratingColor='#FFE656'
                 />                
             </Card>
+            <StatusBar syle='auto' />
         </View>
     );
 }
@@ -53,11 +58,6 @@ const styles = StyleSheet.create({
     container: {
         justifyContent: 'center',
         alignItems: 'center'
-    },
-    width30: {
-        weigth: '50%',
-        width: '50%',
-        alignself: 'center'
     },
     padding3: {
         padding: 3
@@ -69,23 +69,13 @@ const styles = StyleSheet.create({
     button: {
         padding: 2,
     },
-    titleTitle: {
-        color: '#8EDBBE'
-    },
     titleBold: {
         fontWeight: 'bold',
         fontSize: 15
     },
     details: {
         padding: 3,
-        fontSize: 'italic',
         color: 'grey'
-    },
-    titleArtist: {
-        fontSize: 16
-    },
-    titleAlbum: {
-        fontStyle: 'italic'
     }
 });
 

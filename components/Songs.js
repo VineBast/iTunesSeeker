@@ -1,22 +1,37 @@
 import { View, StyleSheet, FlatList } from "react-native";
 import { useSelector } from "react-redux"
-import { Card, Text, Rating } from 'react-native-elements';
-import { songsSelector } from "./songsSlice"
+import { Card, Rating } from 'react-native-elements';
+import { filteredSongsSelector } from "./songsSlice"
+import { ButtonFilter } from "./ButtonFilter";
+import { LittleCardText } from "./LittleCardText";
 
 const Songs = () => {
-    const songs = useSelector(songsSelector);
+    const songs = useSelector(filteredSongsSelector);
 
     return (
         <View style={styles.container}>
+            <View style={styles.row}>
+                <ButtonFilter
+                    title={"Rock Only"}
+                    dispatch={"Rock"}
+                />
+                <ButtonFilter
+                    title={"Tous"}
+                    dispatch={"all"}
+                />
+            </View>
             <FlatList
                 data={songs}
                 extraData={songs}
                 keyExtractor={(item) => item.id}
                 renderItem={({ item }) => (
                     <Card>
-                        <Text h4 style={styles.titleTitle}>{item.song.trackName}</Text>
-                        <Text style={styles.titleArtist}>Artiste(s) • {item.song.artistName}</Text>
-                        <Text style={styles.titleAlbum}>Album • {item.song.collectionName}</Text>
+                        <LittleCardText
+                            title={item.song.trackName}
+                            artists={item.song.artistName}
+                            album={item.song.collectionName}
+                            genre={item.song.primaryGenreName}
+                        />
                         <Rating
                             type='custom'
                             readonly
@@ -37,13 +52,18 @@ const styles = StyleSheet.create({
     container: {
         flex: 1
     },
+    row: {
+        justifyContent: "center",
+        flexDirection: "row",
+        flexWrap: "wrap",
+    },
     titleTitle: {
         color: '#8EDBBE'
     },
     titleArtist: {
         fontSize: 16
     },
-    titleAlbum: {
+    titleItalic: {
         fontStyle: 'italic'
     }
 });

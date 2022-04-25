@@ -45,7 +45,7 @@ const App = () => {
             screenOptions={({ route }) => ({
               tabBarIcon: ({ focused, color, size }) => {
                 let iconName;
-                if (route.name === 'Accueil') {
+                if (route.name === 'iTunesSeeker') {
                   iconName = focused
                     ? 'search'
                     : 'search-outline';
@@ -59,7 +59,7 @@ const App = () => {
             })}
           >
             <Tab.Screen
-              name='Accueil'
+              name='iTunesSeeker'
               component={HomeStack}
               options={{
                 headerStyle: {

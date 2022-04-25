@@ -1,6 +1,7 @@
-import { SearchBar, Card, Text } from 'react-native-elements';
-import { FlatList, StyleSheet, View, TouchableOpacity, StatusBar, TextInput } from 'react-native';
+import { SearchBar, Card } from 'react-native-elements';
+import { FlatList, StyleSheet, View, TouchableOpacity, StatusBar } from 'react-native';
 import { useEffect, useState } from 'react';
+import { LittleCardText } from './LittleCardText';
 
 const createRequest = (search) => {
     return ('https://itunes.apple.com/search?term=' + search + '&attribute=mixTerm&country=fr&sort=popular&limit=20');
@@ -44,9 +45,12 @@ const Home = ({ navigation }) => {
                         <TouchableOpacity
                             onPress={() => navigation.navigate("Détails", item)}>
                             <Card>
-                                <Text h4 style={styles.titleTitle}>{item.trackName}</Text>
-                                <Text style={styles.titleArtist}>Artiste(s) • {item.artistName}</Text>
-                                <Text style={styles.titleAlbum}>Album • {item.collectionName}</Text>
+                                <LittleCardText
+                                    title={item.trackName}
+                                    artists={item.artistName}
+                                    album={item.collectionName}
+                                    genre={item.primaryGenreName}
+                                />
                             </Card>
                         </TouchableOpacity>
                     )}

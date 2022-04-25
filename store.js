@@ -1,6 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { configureStore } from '@reduxjs/toolkit';
-import songsReducer from "./components/songsSlice"
+import songsReducer from "./components/songsSlice";
+import filterReducer from "./components/filterSlice";
 import { combineReducers } from 'redux';
 import {
     persistReducer,
@@ -12,7 +13,7 @@ import {
     REGISTER,
 } from 'redux-persist';
 
-const reducers = combineReducers( {songs: songsReducer} );
+const reducers = combineReducers({ songs: songsReducer, filter: filterReducer });
 
 const persistConfig = {
     key: "root",

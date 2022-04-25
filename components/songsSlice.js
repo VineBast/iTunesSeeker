@@ -13,4 +13,16 @@ const songsSlice = createSlice({
 
 export const { add } = songsSlice.actions;
 export const songsSelector = (state) => state.songs;
+
+export const filteredSongsSelector = (state) => {
+    switch (state.filter) {
+        case "all":
+            return state.songs;
+        case "Rock":
+            return state.songs.filter((elm) => elm.song.primaryGenreName == "Rock");
+        default:
+            break;
+    }
+}
+
 export default songsSlice.reducer;

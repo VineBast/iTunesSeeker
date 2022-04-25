@@ -6,7 +6,6 @@ const songsSlice = createSlice({
     reducers: {
         add: (state, action) => {
             let id = state.length;
-            console.log(state);
             return [...state, { song: action.payload }]
         }
     }
